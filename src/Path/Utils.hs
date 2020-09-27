@@ -10,6 +10,7 @@ module Path.Utils (
   (</$>)
 , changeDir
 , splitPath
+, toFilePathText
 ) where
 
 import Control.Monad.Catch
@@ -29,3 +30,7 @@ changeDir src dst fp = (dst </>) <$> stripProperPrefix src fp
 -- | Split a relative path into text sections.
 splitPath :: Path Rel t -> [Text]
 splitPath = fmap T.pack . splitOn "/" . toFilePath
+
+-- | Convert a `Path` to `Text`.
+toFilePathText :: Path b t -> Text
+toFilePathText = T.pack . toFilePath
